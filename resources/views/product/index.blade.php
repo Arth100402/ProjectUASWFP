@@ -22,7 +22,7 @@
     </head>
 
     <body>
-        <a href="{{ route('product.create') }}" class="btn btn-success">+ New Product</a>
+        <a href="{{ route('product.create') }}" class="btn btn-success">+ New Products</a>
         <p>
             <!-- Navigation-->
             <!-- Header-->
