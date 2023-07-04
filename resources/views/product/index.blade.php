@@ -19,7 +19,7 @@
         <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     </head>
     <body>
-    <a href="{{route('product.create')}}" class="btn btn-success">+ New Products</a><p>
+    <a href="{{route('product.create')}}" class="btn btn-success">+ New Productsss</a><p>
         <!-- Navigation-->
         <!-- Header-->
         <header class="bg-dark py-5">
