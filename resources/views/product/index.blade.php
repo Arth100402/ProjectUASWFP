@@ -22,7 +22,7 @@
     </head>
 
     <body>
-        <a href="{{ route('product.create') }}" class="btn btn-success">+ New</a>
+        <a href="{{ route('product.create') }}" class="btn btn-success">+ New Product</a>
         <p>
             <!-- Navigation-->
             <!-- Header-->
@@ -41,8 +41,8 @@
                         <div class="col mb-5">
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img-top" style="object-fit: cover;" src="{{ asset('images/' . $d->image) }}"
-                                    height='200px' />
+                                <img class="card-img-top" style="object-fit: cover;"
+                                    src="{{ asset('images/' . $d->image) }}" height='200px' />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
