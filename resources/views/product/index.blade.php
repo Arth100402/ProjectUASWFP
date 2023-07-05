@@ -51,8 +51,14 @@
                                                 href="{{ route('product.show', $d->id) }}">{{ $d->name }}</a></h5>
                                         <!-- Product price-->
                                         Rp. {{ $d->price }}
-                                        <br>
-                                        <a href="{{ route('product.edit', $d->id) }}">Ubah</a>
+                                        <p><p>
+                                        <a class="btn btn-info" href="{{ route('product.edit', $d->id) }}">Ubah</a><p>
+                                        <form method="POST" action="{{ route('product.destroy',$d->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" value="Hapus" class="btn btn-danger"
+                                                onclick="return confirm('Do You Agree to Delete with {{$d->id}} - {{$d->name}} ?')"></input>
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -69,7 +75,7 @@
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container">
-                <p class="m-0 text-center text-white">Complete your gorgeous clothing collection from us</p>
+                <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
             </div>
         </footer>
         <!-- Bootstrap core JS-->

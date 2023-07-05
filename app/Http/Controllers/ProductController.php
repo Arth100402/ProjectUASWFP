@@ -43,6 +43,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = new Product();
+
+        $file=$request->file('image');
+        $imageFolder='images';
+        $imageFile=time()."_".$file->getClientOriginalName();
+        $file->move($imageFolder,$imageFile);
+        $data->image=$imageFile;
+        
         $data->name = $request->get('nameprod');
         $data->category_id = $request->get('cateprod');
         $data->type_id = $request->get('typeprod');
@@ -50,8 +57,6 @@ class ProductController extends Controller
         $data->price = $request->get('priceprod');
         $data->stock = $request->get('stockprod');
         $data->dimensi = $request->get('dimensiprod');
-        $data->image = $request->get('imageprod');
-
         $data->save();
         return redirect()->route('product.index')->with('status','Horray!! Your New Product Data is Already Inserted');
     }
@@ -94,6 +99,13 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $data = Product::find($id);
+
+        $file=$request->file('image');
+        $imageFolder='images';
+        $imageFile=time()."_".$file->getClientOriginalName();
+        $file->move($imageFolder,$imageFile);
+        $data->image=$imageFile;
+
         $data->name = $request->get('nameprod');
         $data->category_id = $request->get('cateprod');
         $data->type_id = $request->get('typeprod');
@@ -101,7 +113,6 @@ class ProductController extends Controller
         $data->price = $request->get('priceprod');
         $data->stock = $request->get('stockprod');
         $data->dimensi = $request->get('dimensiprod');
-        $data->image = $request->get('imageprod');
         $data->save();
         return redirect()->route('product.index')->with('status','Horray!! Your Product is Already Up-to-date');
     }
@@ -114,7 +125,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $objProduct = Product::find($id);
+            $objProduct->delete();
+            return redirect()->route('product.index')->with('status','Horray!! Berhasil Hapus Data Product');
+        }catch(\PDOException $ex)
+        {
+            $msg = "Data Gagal Dihapus. Pastikan Kembali Tidak Ada Data yang berelasi sebelum dihapus";
+            return redirect()->route('product.index')->with('status',$msg);
+        }
     }
 
     public function addToCart($id)

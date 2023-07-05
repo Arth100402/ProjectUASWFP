@@ -20,42 +20,57 @@
         <!-- Header-->
         <header class="bg-dark py-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Edit Your Profile</h1>
+                    <h1 class="display-4 fw-bolder">Create Your Product</h1>
             </div>
         </header>
 
 <br>
 
-<form method="POST" action="{{route('user.update',$data->id)}}">
+<form enctype="multipart/form-data" role="form" method="POST" action="{{route('product.store')}}">
   @csrf
-  @method("PUT")
   <div class="form-group">
-    <label for="nameofProduct">User Name</label>
-    <input type="text" name="nameuser"
-            class="form-control" id="nameUser" value="{{$data->name}}"
-            aria-describedby="nameHelp" placeholder="Enter Your Name">
+    <label for="nameofMember">Name Of Member</label>
+    <input type="text" name="namemember"
+            class="form-control" id="nameMember"
+            aria-describedby="nameHelp" placeholder="Enter Name Of Member">
     <small id="nameHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
   </div>
 
   <div class="form-group">
-    <label for="nameofProduct">Email</label>
-    <input type="text" name="emailuser"
-            class="form-control" id="emailUser" value="{{$data->email}}"
-            aria-describedby="nameHelp" placeholder="Enter Your Email">
-    <small id="nameHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
+    <label for="emailofMember">Email Of Member</label>
+    <input type="text" name="emailmember"
+            class="form-control" id="emailMember"
+            aria-describedby="emailHelp" placeholder="Enter Email Of Member">
+    <small id="emailHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
   </div>
 
   <div class="form-group">
-    <label for="nameofProduct">Password</label>
-    <input type="text" name="passworduser"
-            class="form-control" id="passwordUser" value="{{$data->password}}"
-            aria-describedby="nameHelp" placeholder="Enter Your password">
-    <small id="nameHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
+    <label for="passofMember">Password Of Member</label>
+    <input type="text" name="passmember"
+            class="form-control" id="passMember"
+            aria-describedby="passHelp" placeholder="Enter Password Of Member">
+    <small id="passHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <p>
-</form>  
-        
+
+  <div class="form-group">
+    <label for="poinofMember">Poin Of Member</label>
+    <input type="number" name="poinmember" min=1
+            class="form-control" id="poinMember"
+            aria-describedby="poinHelp" placeholder="Enter Poin Of Member">
+    <small id="poinHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="roleofMember">Role Of Member</label>
+    <select class="form-control" name="rolemember" id="roleMember">
+    @foreach($dataRole as $dr)
+        <option value='{{$dr->id}}'>{{$dr->name}}</option>
+    @endforeach
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button><p>
+</form>        
         
         <!-- Footer-->
         <footer class="py-5 bg-dark">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +16,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // Untuk Query dengan RAW
+        $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=3"));
+        return view('member.index',compact('queryRaw'));
     }
 
     public function member()
@@ -30,7 +34,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $dataUser = User::all();
+        $dataRole = Role::all();
+        return view ('member.createmember',compact('dataUser','dataRole'));
     }
 
     /**
@@ -41,7 +47,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new User();
+        $data->name = $request->get('namemember');
+        $data->email = $request->get('emailmember');
+        $data->password = $request->get('passmember');
+        $data->poin = $request->get('poinmember');
+
+        $data->save();
+        return redirect()->route('member.index')->with('status','Horray!! Your New Member Data is Already Inserted');
     }
 
     /**
@@ -87,7 +100,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $objUser = User::find($id);
+            $objUser->delete();
+            return redirect()->route('user.index')->with('status','Horray!! Berhasil Hapus Data Member');
+        }catch(\PDOException $ex)
+        {
+            $msg = "Data Gagal Dihapus. Pastikan Kembali Tidak Ada Data yang berelasi sebelum dihapus";
+            return redirect()->route('user.index')->with('status',$msg);
+        }
     }
 
     public function checkout()

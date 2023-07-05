@@ -26,7 +26,7 @@
 
 <br>
 
-<form method="POST" action="{{route('product.update',$data->id)}}">
+<form enctype="multipart/form-data" role="form" method="POST" action="{{route('product.update',$data->id)}}">
   @csrf
   @method("PUT")
   <div class="form-group">
@@ -93,29 +93,44 @@
   </div>
 
   <div class="form-group">
-    <label for="dimensiofProduct">Dimension Of Product</label>
-    <input type="text" name="dimensiprod"
-            class="form-control" id="dimensiProduct" value="{{$data->dimensi}}"
-            aria-describedby="dimensiHelp" placeholder="Enter Name Of Product">
-    <small id="dimensiHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
+    <label for="dimensiofProduct">Dimension Of Product</label>  
+    <select class="form-control" name="dimensiprod" id="dimensiProduct" placeholder="Enter Dimensi Of Product">
+    <option value="XS">Extra Small</option>
+    <option value="S">Small</option>
+    <option value="M">Medium</option>
+    <option value="L">Large</option>
+    <option value="XL">Extra Large</option>
+    <option value="All Size">All Size</option>
+    <option value="30gr">30 Gram</option>
+    <option value="50gr">50 Gram</option>
+    <option value="100gr">100 Gram</option>
+    <option value="150gr">150 Gram</option>
+    <option value="200gr">200 Gram</option>
+    <option value="250gr">250 Gram</option>
+    <option value="500gr">500 Gram</option>
+    <option value="30ml">30 Mililiter</option>
+    <option value="50ml">50 Mililiter</option>
+    <option value="100ml">100 Mililiter</option>
+    <option value="150ml">150 Mililiter</option>
+    <option value="200ml">200 Mililiter</option>
+    <option value="250ml">250 Mililiter</option>
+    <option value="500ml">500 Mililiter</option>
+    </select>
   </div>
 
   <div class="form-group">
-    <label for="imageofProduct">File Image Title Of Product</label>
-    <input type="text" name="imageprod" min=1
-            class="form-control" id="imageProduct" value="{{$data->image}}"
-            aria-describedby="imageHelp" placeholder="Enter File Image Title example:Hat1.jpg">
-    <small id="imageHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
+	  <label>Image of Product</label>
+	  <input type="file" class="form-control"
+	  id='image' name='image'>
   </div>
   
   <button type="submit" class="btn btn-primary">Submit</button>
   <p>
 </form>  
         
-        
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Complete your gorgeous clothing collection from us</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Complete your gorgeous collection from us</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

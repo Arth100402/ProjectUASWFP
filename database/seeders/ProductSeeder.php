@@ -216,7 +216,7 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'name' => 'COCO MADEMOISELLE PARFUME',
-            'category_id' => 1,
+            'category_id' => 2,
             'type_id' => 5,
             'brand_id' => 2,
             'price' => 350000,
@@ -231,7 +231,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 2,
             'price' => 325000,
             'stock' => 10,
-            'dimensi' => '100ML',
+            'dimensi' => '100ml',
             'image' => 'NTbeautyW_Scandal.jpg',
         ]);
         DB::table('products')->insert([
@@ -256,7 +256,7 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'name' => 'YSL PARFUME',
-            'category_id' => 2,
+            'category_id' => 1,
             'type_id' => 5,
             'brand_id' => 2,
             'price' => 400000,
@@ -276,7 +276,7 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'name' => 'SHORT PANTS - CREAM BELT',
-            'category_id' => 1,
+            'category_id' => 2,
             'type_id' => 4,
             'brand_id' => 1,
             'price' => 210000,
@@ -306,7 +306,7 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'name' => 'SHORT PANTS - CREAM MOCHA',
-            'category_id' => 2,
+            'category_id' => 1,
             'type_id' => 4,
             'brand_id' => 1,
             'price' => 240000,
@@ -421,7 +421,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 350000,
             'stock' => 10,
-            'dimensi' => 'XXL',
+            'dimensi' => 'XL',
             'image' => 'NTfashionP_TshirtUSA.jpg',
         ]);
         DB::table('products')->insert([
@@ -586,7 +586,7 @@ class ProductSeeder extends Seeder
         ]);
         DB::table('products')->insert([
             'name' => 'LUXURIOUS CHUNKY BRACELET',
-            'category_id' => 1,
+            'category_id' => 2,
             'type_id' => 1,
             'brand_id' => 1,
             'price' => 110000,
@@ -611,7 +611,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 200000,
             'stock' => 10,
-            'dimensi' => '11',
+            'dimensi' => 'All Size',
             'image' => 'NTfashionP_TwoFancy.jpg',
         ]);
         DB::table('products')->insert([
@@ -621,7 +621,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 210000,
             'stock' => 10,
-            'dimensi' => '12',
+            'dimensi' => 'All Size',
             'image' => 'NTfashionP_ThreeFancy.jpg',
         ]);
         DB::table('products')->insert([
@@ -631,7 +631,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 220000,
             'stock' => 10,
-            'dimensi' => '13',
+            'dimensi' => 'All Size',
             'image' => 'NTfashionP_Square.jpg',
         ]);
         DB::table('products')->insert([
@@ -641,7 +641,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 150000,
             'stock' => 10,
-            'dimensi' => '8',
+            'dimensi' => 'All Size',
             'image' => 'NTfashionW_Infinite.jpg',
         ]);
         DB::table('products')->insert([
@@ -651,7 +651,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 160000,
             'stock' => 10,
-            'dimensi' => '9',
+            'dimensi' => 'All Size',
             'image' => 'NTfashionW_ButterflyRings.jpg',
         ]);
         DB::table('products')->insert([
@@ -661,7 +661,7 @@ class ProductSeeder extends Seeder
             'brand_id' => 1,
             'price' => 170000,
             'stock' => 10,
-            'dimensi' => '10',
+            'dimensi' => 'All Size',
             'image' => 'NTfashionW_Gem.jpg',
         ]);
     }
