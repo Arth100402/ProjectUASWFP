@@ -18,18 +18,18 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('utama');
-});
+})->middleware('auth');
 
-Route::resource('product',ProductController::class);
-Route::resource('user',UserController::class);
+Route::resource('product', ProductController::class)->middleware('auth');
+Route::get('profile', [UserController::class, 'profile'])->name('profile');
+Route::get('profileedit', [UserController::class, 'profileedit'])->name('profile.edit');
+Route::put('profileupdate', [UserController::class, 'profileupdate'])->name('profile.update');
+Route::resource('user', UserController::class);
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('checkout',[UserController::class,'checkout'])->name('checkout');
-    Route::post('submitcheckout',[UserController::class,'submitcheckout'])->name('submitcheckout');
-});
-
-Route::get('cart',[ProductController::class,'cart']);
-Route::get('product-page/addcart/{id}',[ProductController::class,'addToCart'])->name('addToCart');
+Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
+Route::post('submitcheckout', [UserController::class, 'submitcheckout'])->name('submitcheckout');
+Route::get('cart', [ProductController::class, 'cart']);
+Route::get('product-page/addcart/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
 
 Auth::routes();
 

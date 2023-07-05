@@ -1,3 +1,5 @@
+@extends('utama')
+@section('isi')
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -306,3 +308,4 @@
         <script src="{{asset('ecommercewfp/js/main.js')}}"></script>
     </body>
 </html>
+@endsection

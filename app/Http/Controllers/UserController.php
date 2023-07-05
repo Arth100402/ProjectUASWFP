@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
-use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -113,12 +114,35 @@ class UserController extends Controller
 
     public function checkout()
     {
-        $this->authorize('checkmember');
         return view('public.checkout');
     }
 
     public function submitcheckout()
     {
         $this->authorize('checkmember');
+    }
+
+    public function profile()
+    {
+        $auth = Auth::user()->id;
+        $data = User::find($auth);
+        return view('public.profile', compact('data'));
+    }
+
+    public function profileedit()
+    {
+        $auth = Auth::user()->id;
+        $data = User::find($auth);
+        return view('public.profileedit', compact('data'));
+    }
+
+    public function profileupdate(Request $request)
+    {
+        $auth = Auth::user()->id;
+        $data = User::find($auth);
+        $data->name = $request->get('nameuser');
+        $data->email = $request->get('emailuser');
+        $data->save();
+        return redirect()->route('profile')->with('status','Your profile is already up-to-date');
     }
 }
