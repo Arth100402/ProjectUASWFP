@@ -102,4 +102,12 @@ class TransactionController extends Controller
         session()->forget('cart');
         return redirect('home');
     }
+
+    // public function showAjax(Request $request){
+    //     $id = ($request->get('id'));
+    //     $data = Transaction::find($id);
+    //     $transaction = $data-> transaction;
+    //     return response()-> json(array(
+    //         'msg'=> view('transaction.transaction', compact('data', 'dataTransaksi'))->render()), 200);
+    // }
 }

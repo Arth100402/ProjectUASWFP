@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Brand;
 
 class BrandController extends Controller
 {
@@ -13,7 +14,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $data = Brand::all();
+        return view('brand.index',compact('data'));
     }
 
     /**
@@ -23,7 +25,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view ('brand.createbrand');
     }
 
     /**
@@ -34,7 +36,11 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Brand();
+        $data->name = $request->get('namebrand');
+        $data->save();
+        return redirect()->route('brand.index')->with('status','Horray!! Your New Brand Data is Already Inserted');
+
     }
 
     /**
@@ -56,7 +62,8 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Brand::find($id);
+        return view('brand.editbrand', compact('data'));
     }
 
     /**
@@ -68,7 +75,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Brand::find($id);
+        $data->name = $request->get('namebrand');
+        $data->save();
+        return redirect()->route('brand.index')->with('status','Horray!! Your Brand Data is Already Up-to-date');
     }
 
     /**
@@ -79,6 +89,14 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $objUser = Brand::find($id);
+            $objUser->delete();
+            return redirect()->route('brand.index')->with('status','Horray!! Berhasil Hapus Data Brand');
+        }catch(\PDOException $ex)
+        {
+            $msg = "Data Gagal Dihapus. Pastikan Kembali Tidak Ada Data yang berelasi sebelum dihapus";
+            return redirect()->route('brand.index')->with('error',$msg);
+        }
     }
 }
