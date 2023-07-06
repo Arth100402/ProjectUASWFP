@@ -22,6 +22,8 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::resource('brand', BrandController::class);
+Route::resource('user',CategoryController::class);
+Route::resource('user',TypeController::class);
 
 Route::resource('product', ProductController::class)->middleware('auth');
 Route::get('profile', [UserController::class, 'profile'])->name('profile');
@@ -37,3 +39,4 @@ Route::get('product-page/addcart/{id}', [ProductController::class, 'addToCart'])
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::post('transaction/showDataAjax/', 'TransactionController@showAjax')-> name('transaction.showAjax');
