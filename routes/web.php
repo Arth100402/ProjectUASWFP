@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('utama');
 })->middleware('auth');
+
+Route::resource('brand', BrandController::class);
 
 Route::resource('product', ProductController::class)->middleware('auth');
 Route::get('profile', [UserController::class, 'profile'])->name('profile');
