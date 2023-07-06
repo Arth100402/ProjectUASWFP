@@ -200,13 +200,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/icons/mdi.html">
+            <a class="nav-link" href="user">
               <span class="menu-title">Member</span>
               <i class="mdi mdi-contacts menu-icon"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="product">
               <span class="menu-title">Product</span>
               <i class="mdi mdi-format-list-bulleted menu-icon"></i>
             </a>
