@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -13,7 +16,8 @@ class TypeController extends Controller
      */
     public function index()
     {
-        //
+        $data = Type::all();
+        return view('type.index',compact('data'));
     }
 
     /**
@@ -23,7 +27,9 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        $dataType = Type::all();
+
+        return view ('type.createtype',compact('dataType'));
     }
 
     /**
@@ -34,7 +40,11 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = new Type();
+        $data->name = $request->get('name');
+
+        $data->save();
+        return redirect()->route('type.index')->with('status','Type is Already Inserted');
     }
 
     /**
@@ -45,7 +55,9 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Type::find($id);
+
+         return view('type.index',compact('data'));
     }
 
     /**
@@ -56,7 +68,10 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $dataProduct = Product::find($id);
+        $dataCate = Category::all();
+        $dataType = Type::all();
+        return view('type.edittype',compact('data','dataCate', 'dataType'));
     }
 
     /**
@@ -68,7 +83,10 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Type::find($id);
+        $data->name = $request->get('nametype');
+        $data->save();
+        return redirect()->route('type.index')->with('status','Horray!! Your Type is Already Up-to-date');
     }
 
     /**
@@ -79,6 +97,14 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $objType = Type::find($id);
+            $objType->delete();
+            return redirect()->route('type.index')->with('status','Horray!! Berhasil Hapus Tipe');
+        }catch(\PDOException $ex)
+        {
+            $msg = "Data Gagal Dihapus. Pastikan Kembali Tidak Ada Data yang berelasi sebelum dihapus";
+            return redirect()->route('type.index')->with('status',$msg);
+        }
     }
 }
