@@ -29,19 +29,10 @@
   @csrf
   <div class="form-group">
     <label for="nameofCategory">Name Of Category</label>
-    <input type="text" name="namecat"
-            class="form-control" id="nameCategory"
+    <input type="text" name="namecategory"
+            class="form-control" id="namecategory"
             aria-describedby="nameHelp" placeholder="Enter Name Of Category">
     <small id="nameHelp" class="form-text text-muted">Please Write Down Your Category Type.</small>
-  </div>
-
-  <div class="form-group">
-    <label for="category">Category</label>
-    <select class="form-control" name="category" id="categoryName">
-    @foreach($dataCate as $dc)
-        <option value='{{$dc->id}}'>{{$dc->name}}</option>
-    @endforeach
-    </select>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button><br>

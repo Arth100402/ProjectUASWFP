@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = new Category();
-        $data->name = $request->get('namecate');
+        $data->name = $request->get('namecategory');
 
         $data->save();
         return redirect()->route('category.index')->with('status','Category is Already Inserted');
@@ -57,7 +57,7 @@ class CategoryController extends Controller
     {
         $data = Product::find($id);
 
-         return view('product.index',compact('data'));
+         return view('category.index',compact('data'));
     }
 
     /**
@@ -68,9 +68,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $data = Product::find($id);
-        $dataCate = Category::all();
-        return view('category.editcategory',compact('data','dataCate'));
+        // $data = Product::find($id);
+        $dataCate = Category::find($id);
+        return view('category.editcategory',compact('dataCate'));
     }
 
     /**
@@ -83,7 +83,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $data = Category::find($id);
-        $data->name = $request->get('namecate');
+        $data->name = $request->get('namecategory');
         $data->save();
         return redirect()->route('category.index')->with('status','Horray!! Your Category is Already Up-to-date');
     }

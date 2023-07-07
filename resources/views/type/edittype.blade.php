@@ -26,51 +26,24 @@
 
 <br>
 
-<form method="POST" action="{{route('type.update',$data->id)}}">
+<form role="form" method="POST" action="{{route('type.update', $data->id)}}">
   @csrf
   @method("PUT")
   <div class="form-group">
-    <label for="nameofType">Name Of Type</label>
+    <label for="nameofProduct">Name Of Type</label>
     <input type="text" name="nametype"
             class="form-control" id="nameType" value="{{$data->name}}"
-            aria-describedby="nameHelp" placeholder="Enter Name Of CType">
+            aria-describedby="nameHelp" placeholder="Enter Name Of Type">
     <small id="nameHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>
   </div>
-
-  <div class="form-group">
-    <label for="cateofProduct">Category Of Product</label>
-    <select class="form-control" name="cateprod" id="cateProduct" value="{{$data->category_id}}">
-    @foreach($dataType as $dt)
-    @php($selected = '')
-    @if ($dt->id)
-        @php($selected = 'selected="selected"')
-    @endif
-    <option value='{{$dt->id}}' {{$selected}}>{{$dt->name}}</option>
-    @endforeach
-    </select>
-  </div>
-
-  {{-- <div class="form-group">
-    <label for="typeofProduct">Type Of Product</label>
-    <select class="form-control" name="typeprod" id="typeProduct" value="{{$data->type_id}}">
-    @foreach($dataType as $dt)
-    @php($selected = '')
-    @if ($data->type_id == $dt->id)
-        @php($selected = 'selected="selected"')
-    @endif
-    <option value='{{$dt->id}}' {{$selected}}>{{$dt->name}}</option>
-    @endforeach
-    </select>
-  </div> --}}
 
   <button type="submit" class="btn btn-primary">Submit</button>
   <p>
 </form>
 
-
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Complete your gorgeous clothing collection from us</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Complete your gorgeous collection from us</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

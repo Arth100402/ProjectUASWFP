@@ -41,7 +41,7 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $data = new Type();
-        $data->name = $request->get('name');
+        $data->name = $request->get('nametype');
 
         $data->save();
         return redirect()->route('type.index')->with('status','Type is Already Inserted');
@@ -68,10 +68,8 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
-        $dataProduct = Product::find($id);
-        $dataCate = Category::all();
-        $dataType = Type::all();
-        return view('type.edittype',compact('data','dataCate', 'dataType'));
+        $data = Type::find($id);
+        return view('type.edittype',compact('data'));
     }
 
     /**

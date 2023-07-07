@@ -45,8 +45,8 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name -->
-                                        <h5 class="fw-bolder"><a
-                                                href="{{ route('category.show', $d->id) }}">{{ $d->name }}</a></h5>
+                                        <h5 class="fw-bolder">
+                                                {{ $d->name }}</h5>
 
                                         <p><p>
                                         <a class="btn btn-info" href="{{ route('category.edit', $d->id) }}">Ubah</a><p>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,8 +24,8 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::resource('brand', BrandController::class);
-Route::resource('user',CategoryController::class);
-Route::resource('user',TypeController::class);
+Route::resource('category',CategoryController::class);
+Route::resource('type',TypeController::class);
 
 Route::resource('product', ProductController::class)->middleware('auth');
 Route::get('profile', [UserController::class, 'profile'])->name('profile');
