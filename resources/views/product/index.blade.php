@@ -33,6 +33,7 @@
         </header><br>
 
         @cannot('access-backend')
+            <p style="margin: auto; text-align: center;" class="lead fw-normal">{{ $brand_name ?? ''}}</p>
             <!-- Section-->
             <section class="py-5">
                 <div class="container px-4 px-lg-5 mt-5">
@@ -51,7 +52,7 @@
                                                     href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
                                             </h5>
                                             <!-- Product price-->
-                                            <p>Rp. {{ $product->price }}</p>
+                                            <p>Rp{{ $product->price }}</p>
                                             @can('access-backend')
                                                 <p>
                                                     <a class="btn btn-info"

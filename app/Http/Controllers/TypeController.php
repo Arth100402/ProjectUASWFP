@@ -27,6 +27,7 @@ class TypeController extends Controller
      */
     public function create()
     {
+        $this->authorize('access-backend');
         $dataType = Type::all();
 
         return view ('type.createtype',compact('dataType'));
@@ -40,6 +41,7 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('access-backend');
         $data = new Type();
         $data->name = $request->get('nametype');
 
@@ -55,6 +57,7 @@ class TypeController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('access-backend');
         $data = Type::find($id);
 
          return view('type.index',compact('data'));
@@ -68,6 +71,7 @@ class TypeController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access-backend');
         $data = Type::find($id);
         return view('type.edittype',compact('data'));
     }
@@ -81,6 +85,7 @@ class TypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('access-backend');
         $data = Type::find($id);
         $data->name = $request->get('nametype');
         $data->save();

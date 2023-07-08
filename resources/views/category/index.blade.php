@@ -45,7 +45,8 @@
                                         <div class="text-center">
                                             <!-- Product name -->
                                             <h5 class="fw-bolder">
-                                                {{ $d->name }}</h5>
+                                                <a href="{{ route('product.bycategory', $d->id) }}">{{ $d->name }}</a>
+                                            </h5>
                                             <p>
                                         </div>
                                     </div>

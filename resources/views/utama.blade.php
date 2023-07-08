@@ -205,65 +205,89 @@
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
-                @if (Auth::user())
-                    <ul class="nav">
-                        <li class="nav-item nav-profile">
-                            <a href="#" class="nav-link">
+
+                <ul class="nav">
+                    <li class="nav-item nav-profile">
+                        <a href="#" class="nav-link">
+                            @if (Auth::user())
                                 <div class="nav-profile-image">
                                     <img src="{{ asset('assets/images/faces/face1.jpg') }}" alt="profile">
                                     <span class="login-status online"></span>
                                     <!--change to offline or busy as needed-->
                                 </div>
                                 <div class="nav-profile-text d-flex flex-column">
+
                                     <span class="font-weight-bold mb-2">{{ Auth::user()->name }}</span>
                                     <span class="text-secondary text-small">{{ Auth::user()->roles[0]->name }}</span>
+
                                 </div>
                                 <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                            @endif
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">
+                            <span class="menu-title">Dashboard</span>
+                            <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+
+                    @if (Auth::user() and Auth::user()->roles[0]->id != 3)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.index') }}">
+                                <span class="menu-title">Member</span>
+                                <i class="mdi mdi-account menu-icon"></i>
                             </a>
                         </li>
+                    @endif
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('brand.index') }}">
+                            <span class="menu-title">Brand</span>
+                            <i class="mdi mdi-folder menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('category.index') }}">
+                            <span class="menu-title">Category</span>
+                            <i class="mdi mdi-tshirt-crew menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('type.index') }}">
+                            <span class="menu-title">Type</span>
+                            <i class="mdi mdi-hanger menu-icon"></i>
+                        </a>
+                    </li>
+
+                    @if (Auth::user())
                         @if (Auth::user()->roles[0]->id != 3)
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">
-                                    <span class="menu-title">Dashboard</span>
-                                    <i class="mdi mdi-home menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    <span class="menu-title">Member</span>
-                                    <i class="mdi mdi-account menu-icon"></i>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('product.index') }}">
                                     <span class="menu-title">Product</span>
                                     <i class="mdi mdi-shopping menu-icon"></i>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('transaction.index') }}">
                                     <span class="menu-title">Transaction</span>
-                                    <i class="mdi mdi-file-document menu-icon"></i>
-                                </a>
+                                    <i class="mdi mdi-file-document menu-icon"></i></a>
                             </li>
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('product.index') }}">
-                                    <span class="menu-title">Dashboard</span>
-                                    <i class="mdi mdi-home menu-icon"></i>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('cart') }}">
                                     <span class="menu-title">Cart</span>
                                     <i class="mdi mdi-cart menu-icon"></i>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('transaction.mytransaction') }}">
                                     <span class="menu-title">Transaction</span>
-                                    <i class="mdi mdi-file-document menu-icon"></i>
-                                </a>
+                                    <i class="mdi mdi-file-document menu-icon"></i></a>
                             </li>
                         @endif
 
@@ -276,7 +300,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
+                                         document.getElementById('logout-form').submit();">
                                 <span class="menu-title">{{ __('Logout') }}</span>
                                 <i class="mdi mdi-logout menu-icon"></i>
                             </a>
@@ -285,22 +309,8 @@
                                 @csrf
                             </form>
                         </li>
-                        {{-- <li class="nav-item sidebar-actions">
-                            <span class="nav-link">
-                            <button class="btn btn-block btn-lg btn-gradient-primary mt-4">+ Add a project</button>
-                            <div class="mt-4">
-                                <div class="border-bottom">
-                                <p class="text-secondary">Categories</p>
-                                </div>
-                                <ul class="gradient-bullet-list mt-4">
-                                <li>Woman</li>
-                                <li>Man</li>
-                                </ul>
-                            </div>
-                            </span>
-                        </li> --}}
-                    </ul>
-                @endif
+                    @endif
+                </ul>
             </nav>
             <!-- partial -->
             <div class="main-panel">

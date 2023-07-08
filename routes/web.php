@@ -27,6 +27,9 @@ Route::resource('type',TypeController::class)->middleware('auth');
 Route::resource('transaction',TransactionController::class)->middleware('auth');
 
 Route::get('mytransaction',[TransactionController::class, 'mytransaction'])->name('transaction.mytransaction');
+Route::get('product/bybrand/{id}',[ProductController::class, 'bybrand'])->name('product.bybrand');
+Route::get('product/bytype/{id}',[ProductController::class, 'bytype'])->name('product.bytype');
+Route::get('product/bycategory/{id}',[ProductController::class, 'bycategory'])->name('product.bycategory');
 
 Route::resource('product', ProductController::class)->middleware('auth');
 Route::get('profile', [UserController::class, 'profile'])->name('profile');

@@ -51,9 +51,14 @@ class TransactionController extends Controller
     public function show($id)
     {
         $transaction = Transaction::find($id);
-        $data = $transaction->products;
 
-        $this->authorize('transaction-view-permission', $transaction);
+        if ($transaction) {
+            $data = $transaction->products;
+        }
+
+        if (Auth::user()->roles[0]->id == 3) {
+            $this->authorize('transaction-view-permission', $transaction->user_id ?? (Auth::id() + 1));
+        }
 
         return view('transaction.detailtransaction', compact('transaction', 'data'));
     }

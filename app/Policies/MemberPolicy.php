@@ -42,9 +42,9 @@ class MemberPolicy
             : AccessResponse::deny("Anda harus mendaftar sebagai member"));
     }
 
-    public function authorizeViewTransaction(User $user, Transaction $transaction)
+    public function authorizeViewTransaction(User $user, $id)
     {
-        return ($user->id == $transaction->user_id
+        return ($user->id == $id
             ? AccessResponse::allow()
             : AccessResponse::deny("Anda tidak bisa melihat transaksi ini"));
     }

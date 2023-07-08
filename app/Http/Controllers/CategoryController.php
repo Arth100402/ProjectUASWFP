@@ -59,9 +59,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('access-backend');
         $data = Product::find($id);
 
-         return view('category.index',compact('data'));
+        return view('category.index',compact('data'));
     }
 
     /**

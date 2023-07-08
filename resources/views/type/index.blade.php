@@ -22,60 +22,82 @@
     </head>
 
     <body>
-        <a href="{{ route('type.create') }}" class="btn btn-success">+ New Type</a>
-        <p>
-            <!-- Navigation-->
-            <!-- Header-->
+        <!-- Navigation-->
+        <!-- Header-->
         <header class="bg-dark py-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">Shop in style</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Find Your Skincare, Make-up, and Outfit</p>
             </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        </header><br>
 
-                    @foreach ($data as $d)
-                        <div class="col mb-5">
-                            <div class="card h-100">
-
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name -->
-                                        <h5 class="fw-bolder"><a
-                                                href="{{ route('type.show', $d->id) }}">{{ $d->name }}</a></h5>
-
-                                        <p><p>
-                                        <a class="btn btn-info" href="{{ route('type.edit', $d->id) }}">Ubah</a><p>
-                                        <form method="POST" action="{{ route('type.destroy',$d->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Hapus" class="btn btn-danger"
-                                                onclick="return confirm('Do You Agree to Delete with {{$d->id}} - {{$d->name}} ?')"></input>
-                                        </form>
+        @cannot('access-backend')
+            <!-- Section-->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @foreach ($data as $type)
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name -->
+                                            <h5 class="fw-bolder"><a
+                                                    href="{{ route('product.bytype', $type->id) }}">{{ $type->name }}</a></h5>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
-            </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+            </section>
+        @endcannot
+
+        @can('access-backend')
+            <a href="{{ route('type.create') }}" class="btn btn-success">+ New Type</a>
+            <p>
+
+            <table id="myTable" class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Brand Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $type)
+                        <tr id="tr_{{ $type->id }}">
+                            <td id="td_name_{{ $type->id }}">{{ $type->id }}</td>
+                            <td id="td_name_{{ $type->id }}">{{ $type->name }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{{ route('type.edit', $type->id) }}">Ubah</a>
+                                <p>
+                                <form method="POST" action="{{ route('type.destroy', $type->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Hapus" class="btn btn-danger"
+                                        onclick="return confirm('Do You Agree to Delete with {{ $type->id }} - {{ $type->name }} ?')">
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+            </table>
+        @endcan
     </body>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
 
     </html>
 @endsection

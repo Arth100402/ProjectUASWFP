@@ -49,7 +49,7 @@
                                         <div class="text-center">
                                             <!-- Product name -->
                                             <h5 class="fw-bolder">
-                                                <a href="#">
+                                                <a href="{{ route('product.bybrand', $brand->id) }}">
                                                     {{ $brand->name }}</a>
                                             </h5>
                                         </div>
