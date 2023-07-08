@@ -9,6 +9,7 @@
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery.dataTables.css') }}">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
@@ -16,7 +17,10 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/jquery.dataTables.css') }}" rel="stylesheet" type="text/css" />
+
+    <script src="{{ asset('assets/plugins/jquery-3.7.0.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/plugins/jquery.dataTables.js') }}" type="text/javascript"></script>
 
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
@@ -291,6 +295,14 @@
                             </li>
                         @endif
 
+                        @if (Auth::user()->roles[0]->id == 1)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('laporan.index') }}">
+                                    <span class="menu-title">Laporan</span>
+                                    <i class="mdi mdi-folder-text menu-icon"></i></a>
+                            </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">
                                 <span class="menu-title">Profile</span>
@@ -327,6 +339,7 @@
         <!-- container-scroller -->
         @yield('javascript')
         <!-- plugins:js -->
+        <script src="{{ asset('assets/plugins/jquery.editable.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
         <!-- endinject -->
         <!-- Plugin js for this page -->

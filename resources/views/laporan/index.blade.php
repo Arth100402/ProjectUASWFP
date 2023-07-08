@@ -27,34 +27,34 @@
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Transaction List</h1>
+                <h1 class="display-4 fw-bolder">Laporan Kategori Terlaris</h1>
             </div>
         </header><br>
         <p>
 
-        <table id="myTable" class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Transaction Date</th>
-                    <th>Customer Name</th>
-                    <th>Total Transaction</th>
-                    <th>Detailed Transaction</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($transactions as $transaction)
-                    <tr>
-                        <td>{{ $transaction->created_at }}</td>
-                        <td>{{ $transaction->user->name }}</td>
-                        <td>Rp{{ $transaction->totalprice }}</td>
-                        <td>
-                            <a class="btn btn-default" data-toggle="modal" data-target='#myModalTransaction'
-                                href='{{ route('transaction.show', $transaction->id) }}'>
-                                Rincian Transaksi</a>
-                        </td>
-                    </tr>
-                @endforeach
-        </table>
+            <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    @foreach ($data as $laporan)
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <!-- Laporan details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Laporan name -->
+                                        <h5 class="fw-bolder">
+                                            <a href="{{ url($laporan['link']) }}">{{ $laporan['name'] }}</a>
+                                        </h5>
+                                        <p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
     </body>
 
     <!-- Footer-->
@@ -67,11 +67,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    @can('access_backend')
-        <script>
-            $('#myTable').DataTable();
-        </script>
-    @endcan
+    <script>
+        $('#myTable').DataTable();
+    </script>
 
     </html>
 @endsection

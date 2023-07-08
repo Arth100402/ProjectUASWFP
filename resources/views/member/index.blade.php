@@ -42,7 +42,9 @@
                         <th>User's Name</th>
                         <th>User's Email</th>
                         <th>User's Points</th>
-                        <th>Action</th>
+                        @can('delete-member-permission')
+                            <th>Action</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -50,16 +52,20 @@
                         <tr id="tr_{{ $user->id }}">
                             <td id="td_name_{{ $user->id }}">{{ $user->id }}</td>
                             <td id="td_name_{{ $user->id }}">{{ $user->name }}</td>
-                            <td id="td_email_{{ $user->email }}">{{ $user->email[0] }}*****{{ explode('@', $user->email)[0][-1].'@'.explode('@', $user->email)[1] }}</td>
-                            <td id="td_poin_{{ $user->poin }}">{{ $user->poin }}</td>
-                            <td>
-                                <form method="POST" action="{{ route('user.destroy', $user->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Hapus" class="btn btn-danger"
-                                        onclick="return confirm('Do You Agree to Delete with {{ $user->id }} - {{ $user->name }} ?')">
-                                </form>
+                            <td id="td_email_{{ $user->email }}">
+                                {{ $user->email[0] }}*****{{ explode('@', $user->email)[0][-1] . '@' . explode('@', $user->email)[1] }}
                             </td>
+                            <td id="td_poin_{{ $user->poin }}">{{ $user->poin }}</td>
+                            @can('owner-only-permission')
+                                <td>
+                                    <form method="POST" action="{{ route('user.destroy', $user->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" value="Hapus" class="btn btn-danger"
+                                            onclick="return confirm('Do You Agree to Delete with {{ $user->id }} - {{ $user->name }} ?')">
+                                    </form>
+                                </td>
+                            @endcan
                         </tr>
                     @endforeach
             </table>
@@ -76,13 +82,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-
-    </html>
-@endsection
-
-@section('javascript')
-    <script src="{{ asset('js/jquery.editable.min.js') }}" type="text/javascript"></script>
     <script>
         $('#myTable').DataTable();
     </script>
+
+    </html>
 @endsection

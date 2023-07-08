@@ -27,47 +27,45 @@
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Profile</h1>
+                <h1 class="display-4 fw-bolder">Laporan Tipe Terlaris</h1>
             </div>
         </header><br>
+        <p>
 
         <table id="myTable" class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>User Name</th>
-                    <th>User's Email</th>
-                    <th>User's Points</th>
-                    <th>Action</th>
+                    <th>No.</th>
+                    <th>Tipe</th>
+                    <th>Total Quantity</th>
+                    <th>Total Omzet</th>
+                    <th>Number of Transaction</th>
                 </tr>
             </thead>
             <tbody>
-                <tr id="tr_{{ $data->id }}">
-                    <td id="td_name_{{ $data->id }}">{{ $data->name }}</td>
-                    <td id="td_email_{{ $data->email }}">{{ $data->email }}</td>
-                    <td id="td_poin_{{ $data->poin }}">{{ $data->poin }}</td>
-                    <td>
-                        <a class="btn btn-info" href="{{ route('profile.edit') }}">Ubah</a>
-                        <p>
-                    </td>
-                </tr>
+                @foreach ($data as $tipe)
+                    <tr>
+                        <td>{{ $loop->index + 1 }}</td>
+                        <td id="td_name_{{ $tipe->id }}">{{ $tipe->name }}</td>
+                        <td id="td_name_{{ $tipe->id }}">{{ $tipe->quantity }}</td>
+                        <td id="td_name_{{ $tipe->id }}">Rp{{ $tipe->total_omzet }}</td>
+                        <td id="td_name_{{ $tipe->id }}">{{ $tipe->total_transaction }}</td>
+                    </tr>
+                @endforeach
         </table>
-        <div class="modal fade" id="myModal" tabindex="-1" role="basic" aria-hidden="true">
-            <div class="modal-dialog modal-wide">
-                <div class="modal-content" id="msg">
-                </div>
-            </div>
-
-            <!-- Footer-->
-            <footer class="py-5 bg-dark">
-                <div class="container">
-                    <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
-                </div>
-            </footer>
-            <!-- Bootstrap core JS-->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-            <!-- Core theme JS-->
-            <script src="js/scripts.js"></script>
     </body>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script>$('#myTable').DataTable();</script>
 
     </html>
 @endsection

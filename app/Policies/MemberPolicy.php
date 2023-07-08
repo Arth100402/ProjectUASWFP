@@ -21,14 +21,14 @@ class MemberPolicy
         //
     }
 
-    public function accessBackend(User $user)
+    public function ownerOnly(User $user)
     {
-        return ($user->roles[0]->id != 3
+        return ($user->roles[0]->id == 1
             ? AccessResponse::allow()
-            : AccessResponse::deny("Anda bukan administrator"));
+            : AccessResponse::deny("Anda bukan owner"));
     }
 
-    public function delete(User $user)
+    public function accessBackend(User $user)
     {
         return ($user->roles[0]->id != 3
             ? AccessResponse::allow()

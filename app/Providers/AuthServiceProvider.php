@@ -35,6 +35,6 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('add-to-cart-permission', [MemberPolicy::class, 'addToCart']);
         Gate::define('transaction-view-permission', [MemberPolicy::class, 'authorizeViewTransaction']);
-        Gate::define('delete-member-permission', [MemberPolicy::class, 'create']);
+        Gate::define('owner-only-permission', [MemberPolicy::class, 'ownerOnly']);
     }
 }

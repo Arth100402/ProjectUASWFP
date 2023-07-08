@@ -42,6 +42,13 @@ Route::post('submitcheckout', [UserController::class, 'submitcheckout'])->name('
 Route::get('cart', [ProductController::class, 'cart']);
 Route::get('product-page/addcart/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
 
+Route::get('laporan', [TransactionController::class, 'indexLaporan'])->name('laporan.index');
+Route::get('laporan/produkterlaris', [TransactionController::class, 'produkTerlaris'])->name('transaction.produkTerlaris');
+Route::get('laporan/kategoriterlaris', [TransactionController::class, 'kategoriTerlaris'])->name('transaction.kategoriTerlaris');
+Route::get('laporan/brandterlaris', [TransactionController::class, 'brandTerlaris'])->name('transaction.brandTerlaris');
+Route::get('laporan/tipeterlaris', [TransactionController::class, 'tipeTerlaris'])->name('transaction.tipeTerlaris');
+Route::get('laporan/pembeliterbanyak', [TransactionController::class, 'pembeliTerbanyak'])->name('transaction.pembeliTerbanyak');
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
