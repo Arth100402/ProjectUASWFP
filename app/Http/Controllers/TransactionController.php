@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = Transaction::all();
+        return view('transaction.index', compact('transactions'));
     }
 
     /**
@@ -48,7 +50,18 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        //
+        $transaction = Transaction::find($id);
+        $data = $transaction->products;
+
+        return view('transaction.detailtransaction', compact('transaction', 'data'));
+    }
+
+    public function mytransaction() {
+        $id = Auth::user()->id;
+        $transactions = Transaction::whereHas('user', function (Builder $query) use ($id) {
+            $query->where('user_id', '=', $id);
+        })->get();
+        return view('transaction.index', compact('transactions'));
     }
 
     /**
@@ -102,12 +115,4 @@ class TransactionController extends Controller
         session()->forget('cart');
         return redirect('home');
     }
-
-    // public function showAjax(Request $request){
-    //     $id = ($request->get('id'));
-    //     $data = Transaction::find($id);
-    //     $transaction = $data-> transaction;
-    //     return response()-> json(array(
-    //         'msg'=> view('transaction.transaction', compact('data', 'dataTransaksi'))->render()), 200);
-    // }
 }
