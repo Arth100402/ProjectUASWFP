@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Type;
+use App\Policies\BrandPolicy;
+use App\Policies\CategoryPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\MemberPolicy;
+use App\Policies\TypePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +31,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate:define('checkmember',[MemberPolicy::class, 'checkmember']);
+        Gate::define('access-backend', [MemberPolicy::class, 'accessBackend']);
+
+        Gate::define('add-to-cart-permission', [MemberPolicy::class, 'addToCart']);
+        Gate::define('transaction-view-permission', [MemberPolicy::class, 'authorizeViewTransaction']);
+        Gate::define('delete-member-permission', [MemberPolicy::class, 'create']);
     }
 }

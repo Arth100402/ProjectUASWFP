@@ -4,7 +4,7 @@
         <div class="alert alert-success">{{ session('status') }}</div>
     @endif
 
-    @if(session('error'))
+    @if (session('error'))
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
@@ -35,42 +35,65 @@
             </div>
         </header><br>
 
-        <a href="{{ route('brand.create') }}" class="btn btn-success">+ New Brand</a>
-        <p>
+        @cannot('access-backend')
+            <!-- Section-->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-        <table id="myTable" class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Brand Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $brand)
-                    <tr id="tr_{{ $brand->id }}">
-                        <td id="td_name_{{ $brand->id }}">{{ $brand->id }}</td>
-                        <td id="td_name_{{ $brand->id }}">{{ $brand->name }}</td>
-                        <td>
-                            <a class="btn btn-info" href="{{ route('brand.edit', $brand->id) }}">Ubah</a>
-                            <p>
-
-                            <form method="POST" action="{{ route('brand.destroy', $brand->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" value="Hapus" class="btn btn-danger"
-                                    onclick="return confirm('Do You Agree to Delete with {{ $brand->id }} - {{ $brand->name }} ?')">
-                                </input>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-        </table>
-        <div class="modal fade" id="myModal" tabindex="-1" role="basic" aria-hidden="true">
-            <div class="modal-dialog modal-wide">
-                <div class="modal-content" id="msg">
+                        @foreach ($data as $brand)
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name -->
+                                            <h5 class="fw-bolder">
+                                                <a href="#">
+                                                    {{ $brand->name }}</a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            </section>
+        @endcannot
+
+        @can('access-backend')
+            <a href="{{ route('brand.create') }}" class="btn btn-success">+ New Brand</a>
+            <p>
+
+            <table id="myTable" class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Brand Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $brand)
+                        <tr id="tr_{{ $brand->id }}">
+                            <td id="td_name_{{ $brand->id }}">{{ $brand->id }}</td>
+                            <td id="td_name_{{ $brand->id }}">{{ $brand->name }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{{ route('brand.edit', $brand->id) }}">Ubah</a>
+                                <p>
+
+                                <form method="POST" action="{{ route('brand.destroy', $brand->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Hapus" class="btn btn-danger"
+                                        onclick="return confirm('Do You Agree to Delete with {{ $brand->id }} - {{ $brand->name }} ?')">
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+            </table>
+        @endcan
 
     </body>
     <!-- Footer-->

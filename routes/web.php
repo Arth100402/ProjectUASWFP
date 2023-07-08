@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,14 +21,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('utama');
-})->middleware('auth');
-
-Route::resource('brand', BrandController::class);
-Route::resource('category',CategoryController::class);
-Route::resource('type',TypeController::class);
-Route::resource('transaction',TransactionController::class);
+Route::resource('brand', BrandController::class)->middleware('auth');
+Route::resource('category',CategoryController::class)->middleware('auth');
+Route::resource('type',TypeController::class)->middleware('auth');
+Route::resource('transaction',TransactionController::class)->middleware('auth');
 
 Route::get('mytransaction',[TransactionController::class, 'mytransaction'])->name('transaction.mytransaction');
 
@@ -44,5 +41,8 @@ Route::get('product-page/addcart/{id}', [ProductController::class, 'addToCart'])
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// Route::post('transaction/showDataAjax/', 'TransactionController@showAjax')-> name('transaction.showAjax');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/', function () {
+    return redirect()->route('home');
+});

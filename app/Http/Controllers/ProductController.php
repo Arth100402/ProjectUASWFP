@@ -28,6 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('access-backend');
+
         $dataCate = Category::all();
         $dataType = Type::all();
         $dataBrand = Brand::all();
@@ -42,6 +44,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('access-backend');
+
         $data = new Product();
 
         $file=$request->file('image');
@@ -49,7 +53,7 @@ class ProductController extends Controller
         $imageFile=time()."_".$file->getClientOriginalName();
         $file->move($imageFolder,$imageFile);
         $data->image=$imageFile;
-        
+
         $data->name = $request->get('nameprod');
         $data->category_id = $request->get('cateprod');
         $data->type_id = $request->get('typeprod');
@@ -70,8 +74,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $data = Product::find($id);
-
-         return view('product.detailproduct',compact('data'));
+        return view('product.detailproduct',compact('data'));
     }
 
     /**
@@ -82,6 +85,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access-backend');
+
         $data = Product::find($id);
         $dataCate = Category::all();
         $dataType = Type::all();
@@ -98,6 +103,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('access-backend');
+
         $data = Product::find($id);
 
         $file=$request->file('image');
@@ -125,6 +132,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access-backend');
+
         try{
             $objProduct = Product::find($id);
             $objProduct->delete();

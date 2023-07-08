@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Auth\Access\Response as AccessResponse;
 
 class MemberPolicy
 {
@@ -20,10 +21,38 @@ class MemberPolicy
         //
     }
 
-    public function checkmember(User $user)
+    public function accessBackend(User $user)
     {
-        return ($user->sebagai=='buyer')
-            ? Response::allow()
-            : Response::deny('Anda harus daftar jadi member');
+        return ($user->roles[0]->id != 3
+            ? AccessResponse::allow()
+            : AccessResponse::deny("Anda bukan administrator"));
+    }
+
+    public function delete(User $user)
+    {
+        return ($user->roles[0]->id != 3
+            ? AccessResponse::allow()
+            : AccessResponse::deny("Anda bukan administrator"));
+    }
+
+    public function addToCart(User $user)
+    {
+        return ($user->roles[0]->id == 3
+            ? AccessResponse::allow()
+            : AccessResponse::deny("Anda harus mendaftar sebagai member"));
+    }
+
+    public function authorizeViewTransaction(User $user, Transaction $transaction)
+    {
+        return ($user->id == $transaction->user_id
+            ? AccessResponse::allow()
+            : AccessResponse::deny("Anda tidak bisa melihat transaksi ini"));
+    }
+
+    public function authorizeEditProfile(User $user, $id)
+    {
+        return ($user->id == $id
+            ? AccessResponse::allow()
+            : AccessResponse::deny("Anda tidak bisa mengubah profile pengguna lain"));
     }
 }

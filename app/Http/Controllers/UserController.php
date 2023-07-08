@@ -17,15 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('access-backend');
         // Untuk Query dengan RAW
         $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=3"));
         return view('member.index',compact('queryRaw'));
-    }
-
-    public function member()
-    {
-        $data = User::all();
-        return view('member.index',compact('data'));
     }
 
     /**
@@ -101,6 +96,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete-member-permission');
+
         try{
             $objUser = User::find($id);
             $objUser->delete();
@@ -119,7 +116,7 @@ class UserController extends Controller
 
     public function submitcheckout()
     {
-        $this->authorize('checkmember');
+        $this->authorize('add-to-cart-permission');
     }
 
     public function profile()

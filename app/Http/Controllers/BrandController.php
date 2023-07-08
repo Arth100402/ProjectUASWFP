@@ -25,6 +25,8 @@ class BrandController extends Controller
      */
     public function create()
     {
+        $this->authorize('access-backend');
+
         return view ('brand.createbrand');
     }
 
@@ -36,6 +38,8 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('access-backend');
+
         $data = new Brand();
         $data->name = $request->get('namebrand');
         $data->save();
@@ -62,6 +66,8 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access-backend');
+
         $data = Brand::find($id);
         return view('brand.editbrand', compact('data'));
     }
@@ -75,6 +81,8 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('access-backend');
+
         $data = Brand::find($id);
         $data->name = $request->get('namebrand');
         $data->save();
@@ -89,6 +97,8 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access-backend');
+
         try{
             $objUser = Brand::find($id);
             $objUser->delete();

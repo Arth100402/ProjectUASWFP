@@ -53,6 +53,8 @@ class TransactionController extends Controller
         $transaction = Transaction::find($id);
         $data = $transaction->products;
 
+        $this->authorize('transaction-view-permission', $transaction);
+
         return view('transaction.detailtransaction', compact('transaction', 'data'));
     }
 
@@ -99,7 +101,7 @@ class TransactionController extends Controller
     }
 
     public function submit_front(){
-        $this->authorize('checkmember');
+        $this->authorize('add-to-cart-permission');
 
         $cart = session()->get('cart');
         $user = Auth::user();

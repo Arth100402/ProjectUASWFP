@@ -27,26 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/product';
-    // public function redirectTo()
-    // {
-    //     $role = Auth::user()->sebagai;
-    //     switch($role)
-    //     {
-    //         case 'owner':
-    //             return '/supplier';
-    //             break;
-    //         case 'staff':
-    //             return '/product';
-    //             break;
-    //         case 'buyer':
-    //             return '/checkout';
-    //             break;
-    //         default:
-    //             return '/home';
-    //             break;
-    //     }
-    // }
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.

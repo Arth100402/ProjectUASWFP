@@ -22,7 +22,6 @@
     </head>
 
     <body>
-        <a href="{{ route('category.create') }}" class="btn btn-success">+ New Category</a>
         <p>
             <!-- Navigation-->
             <!-- Header-->
@@ -31,40 +30,66 @@
                 <h1 class="display-4 fw-bolder">Shop in style</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Find Your Skincare, Make-up, and Outfit</p>
             </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        </header><br>
 
-                    @foreach ($data as $d)
-                        <div class="col mb-5">
-                            <div class="card h-100">
-
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name -->
-                                        <h5 class="fw-bolder">
+        @cannot('access-backend')
+            <!-- Section-->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @foreach ($data as $d)
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name -->
+                                            <h5 class="fw-bolder">
                                                 {{ $d->name }}</h5>
-
-                                        <p><p>
-                                        <a class="btn btn-info" href="{{ route('category.edit', $d->id) }}">Ubah</a><p>
-                                        <form method="POST" action="{{ route('category.destroy',$d->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Hapus" class="btn btn-danger"
-                                                onclick="return confirm('Do You Agree to Delete with {{$d->id}} - {{$d->name}} ?')"></input>
-                                        </form>
+                                            <p>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endcannot
+
+        @can('access-backend')
+            <a href="{{ route('category.create') }}" class="btn btn-success">+ New Category</a>
+            <p>
+
+            <table id="myTable" class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Category Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $category)
+                        <tr id="tr_{{ $category->id }}">
+                            <td id="td_name_{{ $category->id }}">{{ $category->id }}</td>
+                            <td id="td_name_{{ $category->id }}">{{ $category->name }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{{ route('category.edit', $category->id) }}">Ubah</a>
+                                <p>
+
+                                <form method="POST" action="{{ route('category.destroy', $category->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Hapus" class="btn btn-danger"
+                                        onclick="return confirm('Do You Agree to Delete {{ $category->id }} - {{ $category->name }} ?')">
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+            </table>
+        @endcan
+
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container">

@@ -26,6 +26,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('access-backend');
+
         $dataCate = Category::all();
         // $dataType = Type::all();
         // $dataBrand = Brand::all();
@@ -40,6 +42,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('access-backend');
+
         $data = new Category();
         $data->name = $request->get('namecategory');
 
@@ -68,6 +72,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('access-backend');
+
         // $data = Product::find($id);
         $dataCate = Category::find($id);
         return view('category.editcategory',compact('dataCate'));
@@ -82,6 +88,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('access-backend');
+
         $data = Category::find($id);
         $data->name = $request->get('namecategory');
         $data->save();
@@ -96,6 +104,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('access-backend');
+
         try{
             $objCategory = Category::find($id);
             $objCategory->delete();

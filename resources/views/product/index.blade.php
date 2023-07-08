@@ -22,7 +22,6 @@
     </head>
 
     <body>
-        <a href="{{ route('product.create') }}" class="btn btn-success">+ New Products</a>
         <p>
             <!-- Navigation-->
             <!-- Header-->
@@ -31,58 +30,115 @@
                 <h1 class="display-4 fw-bolder">Shop in style</h1>
                 <p class="lead fw-normal text-white-50 mb-0">Find Your Skincare, Make-up, and Outfit</p>
             </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        </header><br>
 
-                    @foreach ($data as $d)
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <!-- Product image-->
-                                <img class="card-img-top" style="object-fit: cover;"
-                                    src="{{ asset('images/' . $d->image) }}" height='200px' />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name -->
-                                        <h5 class="fw-bolder"><a
-                                                href="{{ route('product.show', $d->id) }}">{{ $d->name }}</a></h5>
-                                        <!-- Product price-->
-                                        Rp. {{ $d->price }}
-                                        <p><p>
-                                        <a class="btn btn-info" href="{{ route('product.edit', $d->id) }}">Ubah</a><p>
-                                        <form method="POST" action="{{ route('product.destroy',$d->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" value="Hapus" class="btn btn-danger"
-                                                onclick="return confirm('Do You Agree to Delete with {{$d->id}} - {{$d->name}} ?')"></input>
-                                        </form>
+        @cannot('access-backend')
+            <!-- Section-->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @foreach ($data as $product)
+                            <div class="col mb-5">
+                                <div class="card h-100">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" style="object-fit: cover;"
+                                        src="{{ asset('images/' . $product->image) }}" height='200px' />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name -->
+                                            <h5 class="fw-bolder"><a
+                                                    href="{{ route('product.show', $product->id) }}">{{ $product->name }}</a>
+                                            </h5>
+                                            <!-- Product price-->
+                                            <p>Rp. {{ $product->price }}</p>
+                                            @can('access-backend')
+                                                <p>
+                                                    <a class="btn btn-info"
+                                                        href="{{ route('product.edit', $product->id) }}">Ubah</a>
+                                                <p>
+
+                                                <form method="POST" action="{{ route('product.destroy', $product->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="submit" value="Hapus" class="btn btn-danger"
+                                                        onclick="return confirm('Do You Agree to Delete with {{ $product->id }} - {{ $product->name }} ?')">
+                                                </form>
+                                            @endcan
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto"
-                                            href="{{ route('addToCart', $d->id) }}">Add To Cart</a></div>
+                                    @can('add-to-cart-permission')
+                                        <!-- Product actions-->
+                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                    href="{{ route('addToCart', $product->id) }}">Add To Cart</a></div>
+                                        </div>
+                                    @endcan
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
-            </div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+            </section>
+        @endcannot
+
+        @can('access-backend')
+            <a href="{{ route('product.create') }}" class="btn btn-success">+ New Products</a>
+            <p>
+
+            <table id="myTable" class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Brand</th>
+                        <th>Product Category</th>
+                        <th>Product Type</th>
+                        <th>Product Price</th>
+                        <th>Product Stock</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $product)
+                        <tr id="tr_{{ $product->id }}">
+                            <td id="td_name_{{ $product->id }}">{{ $product->id }}</td>
+                            <td id="td_name_{{ $product->id }}"><img class="card-img-top" style="object-fit: cover;"
+                                    src="{{ asset('images/' . $product->image) }}" height='200px' /></td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->brand?->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->category?->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->type?->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->price }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->stock }}</td>
+                            <td>
+                                <a class="btn btn-info" href="{{ route('product.edit', $product->id) }}">Ubah</a>
+
+                                <form method="POST" action="{{ route('product.destroy', $product->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Hapus" class="btn btn-danger"
+                                        onclick="return confirm('Do You Agree to Delete with {{ $product->id }} - {{ $product->name }} ?')">
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+            </table>
+        @endcan
+
     </body>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Complete your gorgeous collection from us</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
 
     </html>
 @endsection
