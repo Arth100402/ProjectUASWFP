@@ -20,13 +20,13 @@
         <!-- Header-->
         <header class="bg-dark py-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Create Your Product</h1>
+                    <h1 class="display-4 fw-bolder">Create Member</h1>
             </div>
         </header>
 
 <br>
 
-<form enctype="multipart/form-data" role="form" method="POST" action="{{route('product.store')}}">
+<form enctype="multipart/form-data" role="form" method="POST" action="{{route('user.store')}}">
   @csrf
   <div class="form-group">
     <label for="nameofMember">Name Of Member</label>
@@ -54,7 +54,7 @@
 
   <div class="form-group">
     <label for="poinofMember">Poin Of Member</label>
-    <input type="number" name="poinmember" min=1
+    <input type="number" name="poinmember" min=0
             class="form-control" id="poinMember"
             aria-describedby="poinHelp" placeholder="Enter Poin Of Member">
     <small id="poinHelp" class="form-text text-muted">Please Write Down Your Data Here.</small>

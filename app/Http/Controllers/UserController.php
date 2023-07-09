@@ -48,9 +48,12 @@ class UserController extends Controller
         $data->email = $request->get('emailmember');
         $data->password = $request->get('passmember');
         $data->poin = $request->get('poinmember');
-
         $data->save();
-        return redirect()->route('member.index')->with('status','Horray!! Your New Member Data is Already Inserted');
+
+        $role_id = $request->get('rolemember');
+        DB::insert("INSERT INTO role_user (user_id, role_id) VALUES ($data->id,$role_id)");
+
+        return redirect()->route('user.index')->with('status','Horray!! Your New Member Data is Already Inserted');
     }
 
     /**
