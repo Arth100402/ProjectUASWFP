@@ -24,7 +24,7 @@
         <header class="bg-dark py-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">{{ $data->name }}</h1>
-                <p class="lead fw-normal text-white-50 mb-0">{{ $data->brand->name }} - {{ $data->dimensi }}</p>
+                <p class="lead fw-normal text-white-50 mb-0">{{ $data->brand ? $data->brand->name : 'No brand' }} - {{ $data->dimensi }}</p>
             </div>
         </header>
         <!-- Section-->
@@ -58,8 +58,8 @@
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <h5 class="fw-bolder">Detail Product</h5>
-                                    Category : {{ $data->category->name }} <br>
-                                    Type : {{ $data->type->name }} <br>
+                                    Category : {{ $data->category ? $data->category->name : 'No category' }} <br>
+                                    Type : {{ $data->type ? $data->type->name : 'No category' }} <br>
                                     Stock : {{ $data->stock }} <br>
                                     Rp. {{ $data->price }}
                                 </div>

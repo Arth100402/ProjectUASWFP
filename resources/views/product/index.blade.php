@@ -38,6 +38,8 @@
 
         @cannot('access-backend')
             <p style="margin: auto; text-align: center;" class="lead fw-normal">{{ $brand_name ?? ''}}</p>
+            <p style="margin: auto; text-align: center;" class="lead fw-normal">{{ $category_name ?? ''}}</p>
+            <p style="margin: auto; text-align: center;" class="lead fw-normal">{{ $type_name ?? ''}}</p>
             <!-- Section-->
             <section class="py-5">
                 <div class="container px-4 px-lg-5 mt-5">
@@ -101,9 +103,9 @@
                             <td id="td_name_{{ $product->id }}"><img class="card-img-top" style="object-fit: cover;"
                                     src="{{ asset('images/' . $product->image) }}" height='200px' /></td>
                             <td id="td_name_{{ $product->id }}">{{ $product->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->brand ? $product->brand->name : 'deleted brand' }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->category ? $product->category->name : 'deleted category' }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->type ? $product->type->name : 'deleted type' }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->brand ? $product->brand->name : 'No brand' }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->category ? $product->category->name : 'No category' }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->type ? $product->type->name : 'No type' }}</td>
                             <td id="td_name_{{ $product->id }}">{{ $product->price }}</td>
                             <td id="td_name_{{ $product->id }}">{{ $product->stock }}</td>
                             <td>
