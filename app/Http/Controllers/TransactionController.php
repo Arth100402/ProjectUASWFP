@@ -134,7 +134,7 @@ class TransactionController extends Controller
     public function pembeliTerbanyak()
     {
         $this->authorize('owner-only-permission');
-        $data = DB::select(DB::raw("SELECT u.id AS id, u.name AS name, SUM(totalprice) AS total_spent, COUNT(t.id) AS total_transaction FROM users u INNER JOIN transactions t ON u.id=t.user_id INNER JOIN role_user ru WHERE ru.role_id=3 GROUP BY u.id, u.name;"));
+        $data = DB::select(DB::raw("SELECT u.id AS id, u.name AS name, SUM(totalprice) AS total_spent, COUNT(t.id) AS total_transaction FROM users u INNER JOIN transactions t ON u.id=t.user_id INNER JOIN role_user ru WHERE ru.role_id=3 AND u.deleted_at IS NULL GROUP BY u.id, u.name;"));
         return view('laporan.pembeliTerbanyak', compact('data'));
     }
 

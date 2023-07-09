@@ -33,7 +33,7 @@
         <br>
         <span>Transaction Date: {{ $transaction->transaction_date }}</span>
         <br>
-        <span>Customer Name: {{ $transaction->user->name }}</span>
+        <span>Customer Name: {{ $transaction->user ? $transaction->user->name : 'deleted customer' }}</span>
         <br>
         <span>Grand Total: Rp{{ $transaction->totalprice }}</span>
         <br>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,10 @@ class UserController extends Controller
     {
         $this->authorize('access-backend');
         // Untuk Query dengan RAW
-        $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=3"));
+        // $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=3"));
+        $queryRaw = User::whereHas("roles", function (Builder $query) {
+            $query->where('role_id', '=', 3);
+        })->get();
         return view('member.index',compact('queryRaw'));
     }
 
@@ -99,7 +103,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('delete-member-permission');
+        $this->authorize('owner-only-permission');
 
         try{
             $objUser = User::find($id);
@@ -152,7 +156,10 @@ class UserController extends Controller
     {
         $this->authorize('access-backend');
         // Untuk Query dengan RAW
-        $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=2"));
+        // $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=2"));
+        $queryRaw = User::whereHas("roles", function (Builder $query) {
+            $query->where('role_id', '=', 2);
+        })->get();
         return view('staff.index',compact('queryRaw'));
     }
 

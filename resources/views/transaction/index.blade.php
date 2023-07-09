@@ -45,7 +45,7 @@
                 @foreach ($transactions as $transaction)
                     <tr>
                         <td>{{ $transaction->created_at }}</td>
-                        <td>{{ $transaction->user->name }}</td>
+                        <td>{{ $transaction->user ? $transaction->user->name : 'deleted customer' }}</td>
                         <td>Rp{{ $transaction->totalprice }}</td>
                         <td>
                             <a class="btn btn-default" data-toggle="modal" data-target='#myModalTransaction'
