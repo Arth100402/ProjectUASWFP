@@ -131,7 +131,7 @@
                                     
                                     <?php
                                     $subtotal = array_sum($sum);
-                                    $ppn = $subtotal *0.1;
+                                    $ppn = $subtotal *0.11;
                                     $poin = $user->poin;
                                     $grandtotal = $subtotal + $ppn - ($poin*5000);
                                     echo "<p>Sub Total<span>";
