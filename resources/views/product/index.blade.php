@@ -53,19 +53,6 @@
                                             </h5>
                                             <!-- Product price-->
                                             <p>Rp{{ $product->price }}</p>
-                                            @can('access-backend')
-                                                <p>
-                                                    <a class="btn btn-info"
-                                                        href="{{ route('product.edit', $product->id) }}">Ubah</a>
-                                                <p>
-
-                                                <form method="POST" action="{{ route('product.destroy', $product->id) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="submit" value="Hapus" class="btn btn-danger"
-                                                        onclick="return confirm('Do You Agree to Delete with {{ $product->id }} - {{ $product->name }} ?')">
-                                                </form>
-                                            @endcan
                                         </div>
                                     </div>
                                     @can('add-to-cart-permission')
@@ -108,9 +95,9 @@
                             <td id="td_name_{{ $product->id }}"><img class="card-img-top" style="object-fit: cover;"
                                     src="{{ asset('images/' . $product->image) }}" height='200px' /></td>
                             <td id="td_name_{{ $product->id }}">{{ $product->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->brand->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->category->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->type->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->brand ? $product->brand->name : 'deleted brand' }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->category ? $product->category->name : 'deleted category' }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->type ? $product->type->name : 'deleted type' }}</td>
                             <td id="td_name_{{ $product->id }}">{{ $product->price }}</td>
                             <td id="td_name_{{ $product->id }}">{{ $product->stock }}</td>
                             <td>

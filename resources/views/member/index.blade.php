@@ -42,7 +42,7 @@
                         <th>User's Name</th>
                         <th>User's Email</th>
                         <th>User's Points</th>
-                        @can('delete-member-permission')
+                        @can('owner-only-permission')
                             <th>Action</th>
                         @endcan
                     </tr>
