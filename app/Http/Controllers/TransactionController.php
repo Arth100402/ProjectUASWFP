@@ -106,35 +106,35 @@ class TransactionController extends Controller
     public function produkTerlaris()
     {
         $this->authorize('owner-only-permission');
-        $data = DB::select(DB::raw("SELECT p.id AS id, p.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM products p INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY p.id;"));
+        $data = DB::select(DB::raw("SELECT p.id AS id, p.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM products p INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY p.id, p.name;"));
         return view('laporan.produkTerlaris', compact('data'));
     }
 
     public function brandTerlaris()
     {
         $this->authorize('owner-only-permission');
-        $data = DB::select(DB::raw("SELECT b.id AS id, b.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM brands b INNER JOIN products p ON b.id=p.brand_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY b.id;"));
+        $data = DB::select(DB::raw("SELECT b.id AS id, b.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM brands b INNER JOIN products p ON b.id=p.brand_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY b.id, b.name;"));
         return view('laporan.brandTerlaris', compact('data'));
     }
 
     public function kategoriTerlaris()
     {
         $this->authorize('owner-only-permission');
-        $data = DB::select(DB::raw("SELECT c.id AS id, c.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM categories c INNER JOIN products p ON c.id=p.category_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY c.id;"));
+        $data = DB::select(DB::raw("SELECT c.id AS id, c.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM categories c INNER JOIN products p ON c.id=p.category_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY c.id, c.name;"));
         return view('laporan.kategoriTerlaris', compact('data'));
     }
 
     public function tipeTerlaris()
     {
         $this->authorize('owner-only-permission');
-        $data = DB::select(DB::raw("SELECT ty.id AS id, ty.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM types ty INNER JOIN products p ON ty.id=p.type_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY ty.id;"));
+        $data = DB::select(DB::raw("SELECT ty.id AS id, ty.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM types ty INNER JOIN products p ON ty.id=p.type_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY ty.id, ty.name;"));
         return view('laporan.tipeTerlaris', compact('data'));
     }
 
     public function pembeliTerbanyak()
     {
         $this->authorize('owner-only-permission');
-        $data = DB::select(DB::raw("SELECT u.id AS id, u.name AS name, SUM(totalprice) AS total_spent, COUNT(t.id) AS total_transaction FROM users u INNER JOIN transactions t ON u.id=t.user_id INNER JOIN role_user ru WHERE ru.role_id=3 GROUP BY u.id;"));
+        $data = DB::select(DB::raw("SELECT u.id AS id, u.name AS name, SUM(totalprice) AS total_spent, COUNT(t.id) AS total_transaction FROM users u INNER JOIN transactions t ON u.id=t.user_id INNER JOIN role_user ru WHERE ru.role_id=3 GROUP BY u.id, u.name;"));
         return view('laporan.pembeliTerbanyak', compact('data'));
     }
 
