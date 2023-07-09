@@ -266,6 +266,15 @@
                         </a>
                     </li>
 
+                    @if (is_null(Auth::user()))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <span class="menu-title">Login</span>
+                            <i class="mdi mdi-hanger menu-icon"></i>
+                        </a>
+                    </li>
+                    @endif
+
                     @if (Auth::user())
                         @if (Auth::user()->roles[0]->id != 3)
                             <li class="nav-item">

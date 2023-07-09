@@ -108,9 +108,9 @@
                             <td id="td_name_{{ $product->id }}"><img class="card-img-top" style="object-fit: cover;"
                                     src="{{ asset('images/' . $product->image) }}" height='200px' /></td>
                             <td id="td_name_{{ $product->id }}">{{ $product->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->brand?->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->category?->name }}</td>
-                            <td id="td_name_{{ $product->id }}">{{ $product->type?->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->brand->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->category->name }}</td>
+                            <td id="td_name_{{ $product->id }}">{{ $product->type->name }}</td>
                             <td id="td_name_{{ $product->id }}">{{ $product->price }}</td>
                             <td id="td_name_{{ $product->id }}">{{ $product->stock }}</td>
                             <td>

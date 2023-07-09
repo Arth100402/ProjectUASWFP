@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -64,7 +66,8 @@ class TransactionController extends Controller
         return view('transaction.detailtransaction', compact('transaction', 'data'));
     }
 
-    public function mytransaction() {
+    public function mytransaction()
+    {
         $id = Auth::user()->id;
         $transactions = Transaction::whereHas('user', function (Builder $query) use ($id) {
             $query->where('user_id', '=', $id);
@@ -72,7 +75,8 @@ class TransactionController extends Controller
         return view('transaction.index', compact('transactions'));
     }
 
-    public function indexLaporan() {
+    public function indexLaporan()
+    {
         $this->authorize('owner-only-permission');
         $data = [
             [
@@ -99,31 +103,36 @@ class TransactionController extends Controller
         return view('laporan.index', compact('data'));
     }
 
-    public function produkTerlaris() {
+    public function produkTerlaris()
+    {
         $this->authorize('owner-only-permission');
         $data = DB::select(DB::raw("SELECT p.id AS id, p.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM products p INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY p.id;"));
         return view('laporan.produkTerlaris', compact('data'));
     }
 
-    public function brandTerlaris() {
+    public function brandTerlaris()
+    {
         $this->authorize('owner-only-permission');
         $data = DB::select(DB::raw("SELECT b.id AS id, b.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM brands b INNER JOIN products p ON b.id=p.brand_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY b.id;"));
         return view('laporan.brandTerlaris', compact('data'));
     }
 
-    public function kategoriTerlaris() {
+    public function kategoriTerlaris()
+    {
         $this->authorize('owner-only-permission');
         $data = DB::select(DB::raw("SELECT c.id AS id, c.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM categories c INNER JOIN products p ON c.id=p.category_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY c.id;"));
         return view('laporan.kategoriTerlaris', compact('data'));
     }
 
-    public function tipeTerlaris() {
+    public function tipeTerlaris()
+    {
         $this->authorize('owner-only-permission');
         $data = DB::select(DB::raw("SELECT ty.id AS id, ty.name AS name, SUM(pt.quantity) AS quantity, SUM(pt.price * pt.quantity) AS total_omzet, COUNT(t.id) AS total_transaction FROM types ty INNER JOIN products p ON ty.id=p.type_id INNER JOIN product_transaction pt INNER JOIN transactions t ON pt.transaction_id=t.id ON p.id=pt.product_id GROUP BY ty.id;"));
         return view('laporan.tipeTerlaris', compact('data'));
     }
 
-    public function pembeliTerbanyak() {
+    public function pembeliTerbanyak()
+    {
         $this->authorize('owner-only-permission');
         $data = DB::select(DB::raw("SELECT u.id AS id, u.name AS name, SUM(totalprice) AS total_spent, COUNT(t.id) AS total_transaction FROM users u INNER JOIN transactions t ON u.id=t.user_id INNER JOIN role_user ru WHERE ru.role_id=3 GROUP BY u.id;"));
         return view('laporan.pembeliTerbanyak', compact('data'));
@@ -163,19 +172,27 @@ class TransactionController extends Controller
         //
     }
 
-    public function submit_front(){
-        $this->authorize('add-to-cart-permission');
-
+    public function submit_front($grandtotal)
+    {
         $cart = session()->get('cart');
         $user = Auth::user();
         $t = new Transaction;
         $t->user_id = $user->id;
+        $t->totalprice = $grandtotal;
         $t->transaction_date = Carbon::now()->toDateTimeString();
         $t->save();
 
-        $totalharga = $t->insertProduct($cart,$user);
-        $t->totalprice = $totalharga;
-        $t->save();
+        $poin = floor($grandtotal / 100000);
+        $user = User::find($user->id);
+        $user->poin = $user->poin + $poin;
+        $user->save();
+
+        foreach ($cart as $id => $details) {
+            DB::insert("INSERT INTO product_transaction (product_id, transaction_id, quantity, price) VALUES ($details[id], $t->id, $details[quantity], $details[price])");
+            $product = Product::find($details['id']);
+            $product->stock = $product->stock - $details['quantity'];
+            $product->save();
+        }
 
         session()->forget('cart');
         return redirect('home');

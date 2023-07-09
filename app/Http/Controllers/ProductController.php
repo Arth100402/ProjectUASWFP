@@ -183,6 +183,7 @@ class ProductController extends Controller
         $cart = session()->get('cart');
         if (!isset($cart[$id])) {
             $cart[$id] = [
+                "id" => $p->id,
                 "name" => $p->name,
                 "quantity" => 1,
                 "price" => $p->price,

@@ -38,7 +38,7 @@ Route::put('profileupdate', [UserController::class, 'profileupdate'])->name('pro
 Route::resource('user', UserController::class);
 
 Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
-Route::post('submitcheckout', [UserController::class, 'submitcheckout'])->name('submitcheckout');
+Route::get('submitcheckout/{sum}', [TransactionController::class, 'submit_front'])->name('submitcheckout');
 Route::get('cart', [ProductController::class, 'cart']);
 Route::get('product-page/addcart/{id}', [ProductController::class, 'addToCart'])->name('addToCart');
 

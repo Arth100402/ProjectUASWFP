@@ -25,7 +25,7 @@ class Transaction extends Model
         foreach ($cart as $id => $detail)
         {
             $total += $detail['price'] * $detail['quantity'];
-            $this->products()->attach($id,['quantity' =>$detail['quantity'], 'price' => $detail['price']]);
+            $this->products()->attach($user->id,['quantity' =>$detail['quantity'], 'price' => $detail['price']]);
         }
         return $total;
     }

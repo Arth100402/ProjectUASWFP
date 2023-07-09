@@ -107,9 +107,8 @@
                                         @endif
                                     </span></p>
                                     </div>
-                                    <div class="cart-btn">
-                                        <button action="{{route('checkout')}}">Checkout</button>
-                                    </div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                                    href="{{ route('checkout')}}">Checkout</a></div>
                                 </div>
                             </div>
                         </div>
