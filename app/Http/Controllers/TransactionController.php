@@ -184,6 +184,8 @@ class TransactionController extends Controller
 
         $poin = floor($grandtotal / 100000);
         $user = User::find($user->id);
+        $user->poin = 0;
+        $user->save();
         $user->poin = $user->poin + $poin;
         $user->save();
 

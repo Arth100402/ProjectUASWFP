@@ -111,7 +111,9 @@ class UserController extends Controller
 
     public function checkout()
     {
-        return view('public.checkout');
+        $user = Auth::user();
+        $user = User::find($user->id);
+        return view('public.checkout', compact('user'));
     }
 
     public function submitcheckout()

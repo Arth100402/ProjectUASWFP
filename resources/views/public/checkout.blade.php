@@ -119,6 +119,7 @@
                             <h1>Cart Summary</h1>
                             @if(session('cart'))
                             <?php
+
                             $sum = array();
                             ?>
                             @foreach (session('cart') as $id =>$details)
@@ -127,16 +128,20 @@
                             ?>
 
                             @endforeach
-                            
+                                    
                                     <?php
                                     $subtotal = array_sum($sum);
                                     $ppn = $subtotal *0.1;
-                                    $grandtotal = $subtotal + $ppn;
+                                    $poin = $user->poin;
+                                    $grandtotal = $subtotal + $ppn - ($poin*5000);
                                     echo "<p>Sub Total<span>";
                                     echo $subtotal;
                                     echo "</span></p>";
                                     echo "<p>PPN<span>";
                                     echo $ppn;
+                                    echo "</span></p>";
+                                    echo "<p>Poin<span>";
+                                    echo $poin;
                                     echo "</span></p>";
                                     echo "<p>Grand Total<span>";
                                     echo $grandtotal;
