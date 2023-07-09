@@ -34,16 +34,6 @@
             aria-describedby="nameHelp" placeholder="Enter Name Of Type">
     <small id="nameHelp" class="form-text text-muted">Please Write Down Your Type.</small>
   </div>
-
-  <div class="form-group">
-    <label for="type">Type</label>
-    <select class="form-control" name="type" id="typeName">
-    @foreach($dataType as $dt)
-        <option value='{{$dt->id}}'>{{$dt->name}}</option>
-    @endforeach
-    </select>
-  </div>
-
   <button type="submit" class="btn btn-primary">Submit</button><br>
 </form>
 
