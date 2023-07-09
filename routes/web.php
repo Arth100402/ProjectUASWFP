@@ -37,6 +37,10 @@ Route::get('profileedit', [UserController::class, 'profileedit'])->name('profile
 Route::put('profileupdate', [UserController::class, 'profileupdate'])->name('profile.update');
 Route::resource('user', UserController::class);
 
+Route::get('staff', [UserController::class, 'staff'])->name('staff');
+Route::get('staffcreate', [UserController::class, 'staffcreate'])->name('staff.create');
+Route::post('staffstore', [UserController::class, 'staffstore'])->name('staff.store');
+
 Route::get('checkout', [UserController::class, 'checkout'])->name('checkout');
 Route::get('submitcheckout/{sum}', [TransactionController::class, 'submit_front'])->name('submitcheckout');
 Route::get('cart', [ProductController::class, 'cart']);

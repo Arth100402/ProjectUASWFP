@@ -27,19 +27,20 @@
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Member List</h1>
+                <h1 class="display-4 fw-bolder">Staff List</h1>
             </div>
         </header><br>
 
         @can('access-backend')
+        <a href="{{ route('staff.create') }}" class="btn btn-success">+ New Staff</a>
+            <p>
 
             <table id="myTable" class="table table-striped table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
-                        <th>User's Name</th>
-                        <th>User's Email</th>
-                        <th>User's Points</th>
+                        <th>Staff's Name</th>
+                        <th>Staff's Email</th>
                         @can('owner-only-permission')
                             <th>Action</th>
                         @endcan
@@ -53,7 +54,6 @@
                             <td id="td_email_{{ $user->email }}">
                                 {{ $user->email[0] }}*****{{ explode('@', $user->email)[0][-1] . '@' . explode('@', $user->email)[1] }}
                             </td>
-                            <td id="td_poin_{{ $user->poin }}">{{ $user->poin }}</td>
                             @can('owner-only-permission')
                                 <td>
                                     <form method="POST" action="{{ route('user.destroy', $user->id) }}">

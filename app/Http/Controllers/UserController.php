@@ -147,4 +147,33 @@ class UserController extends Controller
         $data->save();
         return redirect()->route('profile')->with('status','Your profile is already up-to-date');
     }
+
+    public function staff()
+    {
+        $this->authorize('access-backend');
+        // Untuk Query dengan RAW
+        $queryRaw = DB::select(DB::raw("select * from users u inner join role_user as ru on u.id=ru.user_id where ru.role_id=2"));
+        return view('staff.index',compact('queryRaw'));
+    }
+
+    public function staffcreate()
+    {
+        $data = Role::find(2);
+        return view ('staff.createstaff',compact('data'));
+    }
+
+    public function staffstore(Request $request)
+    {
+        $data = new User();
+        $data->name = $request->get('namestaff');
+        $data->email = $request->get('emailstaff');
+        $data->password = $request->get('passstaff');
+        $data->poin = $request->get('poinstaff');
+        $data->save();
+
+        $role_id = $request->get('rolestaff');
+        DB::insert("INSERT INTO role_user (user_id, role_id) VALUES ($data->id,$role_id)");
+
+        return redirect()->route('staff')->with('status','Horray!! Your New Staff Data is Already Inserted');
+    }
 }
