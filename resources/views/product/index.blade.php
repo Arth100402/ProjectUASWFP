@@ -3,6 +3,10 @@
     @if (session('status'))
         <div class="alert alert-success">{{ session('status') }}</div>
     @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     <!DOCTYPE html>
     <html lang="en">
 
@@ -39,6 +43,7 @@
                 <div class="container px-4 px-lg-5 mt-5">
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         @foreach ($data as $product)
+                            @if($product->stock > 0)
                             <div class="col mb-5">
                                 <div class="card h-100">
                                     <!-- Product image-->
@@ -64,6 +69,7 @@
                                     @endcan
                                 </div>
                             </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

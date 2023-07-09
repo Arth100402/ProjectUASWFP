@@ -180,6 +180,7 @@ class ProductController extends Controller
     public function addToCart($id)
     {
         $p = Product::find($id);
+        $stock = $p->stock;
         $cart = session()->get('cart');
         if (!isset($cart[$id])) {
             $cart[$id] = [
@@ -190,10 +191,17 @@ class ProductController extends Controller
                 "photo" => $p->image
             ];
         } else {
-            $cart[$id]["quantity"]++;
+            if($stock > $cart[$id]['quantity'])
+            {
+                $cart[$id]["quantity"]++;
+            }
+            else
+            {
+                return redirect()->back()->with('error', 'Tidak bisa menambahkan barang ke keranjang');
+            }
         }
         session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Horrey Product telah ditambah');
+        return redirect()->back()->with('status', 'Product telah ditambahkan ke keranjang');
     }
 
     public function cart()

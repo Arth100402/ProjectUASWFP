@@ -53,7 +53,6 @@
                                         <th>Price</th>
                                         <th>Quantity</th>
                                         <th>Total</th>
-                                        <th>Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody class="align-middle">
@@ -68,13 +67,10 @@
                                         <td>{{$details['price']}}</td>
                                         <td>
                                             <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="{{$details['quantity']}}">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                <input type="text" value="{{$details['quantity']}}" disabled>
                                             </div>
                                         </td>
                                         <td class="price">{{$details['price'] *$details['quantity']}}</td>
-                                        <td><button><i class="fa fa-trash"></i></button></td>
                                     </tr>
                                     @endforeach
                                     @endif
